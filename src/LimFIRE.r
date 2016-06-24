@@ -1,6 +1,9 @@
-LimFIRE <- function(fuel, moisture, lightning, human_ignitions, agriculture, popdens,
-                    f1, f2, m1, m2, H, i1, P, s1, s2) {
+LimFIRE <- function(fuel, moisture_live, moisture_dead, 
+                    lightning, human_ignitions, 
+                    agriculture, popdens,
+                    f1, f2, M, m1, m2, H, i1, P, s1, s2) {
 
+    moisture   = moisture_live + M * moisture_dead
     ignitions  = lightning + H * human_ignitions
     supression = agriculture + P * popdens   
 
