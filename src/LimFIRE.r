@@ -18,6 +18,6 @@ LimFIRE <- function(fuel, moisture_live, moisture_dead,
 }
 
 LimFIRE.fuel       <- function(...) 1-f1(...)
-LimFIRE.moisture   <- function(...) 1-f2(...)
+LimFIRE.moisture   <- function(...)   f1(...)
 LimFIRE.ignitions  <- function(...) 1-f3(...)
-LimFIRE.supression <- function(...) 1-f2(...)
+LimFIRE.supression <- function(...)   f1(...)
