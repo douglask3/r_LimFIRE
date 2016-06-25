@@ -78,4 +78,3 @@ comment = list('made using rstash' = citation.text('rstash'))
 
 writeRaster.gitInfo(alpha, drive_fname['alpha'],
                     comment = comment, overwrite = TRUE)
-browser()
