@@ -1,7 +1,7 @@
 # Intro
 
 - Coupled vegetation-fire models aim to decribe fire as a function of fuel,moisture and igntions (Hantson et al. 2016)
-- Humans affact fire in 3 ways: 
+- Humans affact fire in 3 ways:
 	1. increased igntions with population and pasture (as incoporated in e.g. SPITFIRE and LmFire)
 	1. Fragmentation factor, from crop and urban cover
 
@@ -50,6 +50,11 @@ Some weakneness:
 	- Fuel could build up at lower fuel decompositions. However, the biggest influance on decomposition time is liutter size, with more thick, slow decaying fuel produced in forest veg types. Here, fuel is unlikley to be limitating even without the extra fuel being accounted of, so this is likley to make little dfference. Perhaps more import, fuel size on drying time is not taken into account, with large fuel retaining moisture for longer. However, most fuel in all dry or seasonal dry excostem loose their moisture in ~ 100hrs or less (...), far less than the monthly tiime step of the model. Again, this will therefore only affect the wettest veg types, where moisture will already be limiting.
 	- Missing other influaces e.g. wind on spread.
 
+## Data choice
+
+
+### alpha
+Unfortunately, there is no reliable global data set of soil moisture.We there- fore used the ratio of actual to equilibrium evapotranspiration (α), which is widely used as an index of plant-available mois- ture (Prentice et al., 1993), as a surrogate for soil moisture. This index is calculated from the CRU TS3.1 climate data as described in Gallego-Sala et al. (2010). Equilibrium evap- otranspiration refers to the water loss from a large homoge- neous area under constant atmospheric conditions. Estimated actual evapotranspiration depends on the rate of supply of moisture from the soil, which declines in proportion to soil water
 
 # Discussion
 - Model process base models also  incoporate simulation of rate of spread (which often includes moisture and fuel), both to incorporatwe affects of e.g.wind speed, and to obtain fire information such asd intensity to simnulate veg-fire feedback.
@@ -104,7 +109,7 @@ Map of fire anaomolie with each limitation lifted in turn
 
 
 # Lit Review stuff
-## Bistinas et al.: 
+## Bistinas et al.:
 
 - NPP biggest "fuel" type predictor
 - alpha biggest live moisture predictor
@@ -113,4 +118,3 @@ Map of fire anaomolie with each limitation lifted in turn
 - Pasture should have positive affect
 - This techinque seperates out control groups to assess specific limitations, not possible with GLM (check).
 - Influances on limitations (i.e, crop + urban etc) are linearly combined, before being combined using the relavent function, as per Bistinas et al.
-

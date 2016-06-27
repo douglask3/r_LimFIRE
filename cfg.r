@@ -11,7 +11,12 @@ sourceAllLibs()
 
 years = 1997:2005
 drive_fname = c(alpha = 'alpha',
-                NPP   = 'NPP')
+                NPP   = 'NPP',
+                crop = 'cropland',
+                pas = 'pasture',
+                urban = 'urban_area',
+                popdens = 'population_density'
+                )
 
 
 nms = names(drive_fname)
