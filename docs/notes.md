@@ -1,8 +1,10 @@
 # Intro
+
 - Coupled vegetation-fire models aim to decribe fire as a function of fuel,moisture and igntions (Hantson et al. 2016)
 - Humans affact fire in 3 ways: 
 	1. increased igntions with population and pasture (as incoporated in e.g. SPITFIRE and LmFire)
 	1. Fragmentation factor, from crop and urban cover
+
 
 # Methods
 - Under perfect conditions, iyt is assumed taht 100% of grid cell is burnt
@@ -13,12 +15,62 @@
 Some weakneness:
 	- Some parts of the world havbe >100% burnt area per year (quantify). However, this is an asumption in most DGVM-fire models, many of which fail to simulate >30% burnt area anywhere.
         - Assumens only 1 fire season (quantify area with > 1 season)
+	- Does not geographically weight live vs dead fuel moisture against fuel pools. In areas with high live fuel fraction, alpha would be more important than emc
+	- Fuel could build up at lower fuel decompositions. However, the biggest influance on decomposition time is liutter size, with more thick, slow decaying fuel produced in forest veg types. Here, fuel is unlikley to be limitating even without the extra fuel being accounted of, so this is likley to make little dfference. Perhaps more import, fuel size on drying time is not taken into account, with large fuel retaining moisture for longer. However, most fuel in all dry or seasonal dry excostem loose their moisture in ~ 100hrs or less (...), far less than the monthly tiime step of the model. Again, this will therefore only affect the wettest veg types, where moisture will already be limiting.
+	- Missing other influaces e.g. wind on spread.
 
 
 # Discussion
 - Model process base models also  incoporate simulation of rate of spread (which often includes moisture and fuel), both to incorporatwe affects of e.g.wind speed, and to obtain fire information such asd intensity to simnulate veg-fire feedback.
 - Extension of model could incorportae wind as  a "scalar" increasing burnt area, rather than a limitation
 - <<Brett>> showed simple relationships between e.g. fire frewquancy, inte ....,  which ould be obtained using this model if incorporated in DGVM
+
+
+# Figures
+
+## Fig 1
+Each plot is limitation vs annual average burnt area scattered with limitation lione superimposed.
+a) production (kg/m2)
+b) moisture (weighted %)
+c) Ignitions (no. of ignitions)
+d) Suppression index (unitless)
+
+
+# Fig 2
+
+- Main Plot
+- Map of limitation
+a) GFED observations, going grey (no fire) to white (max fire) to match below
+b) Map of contribution of limitation. This colours
+
+	- Green: Fuel
+	- Blue: Moisture
+	- Red: Ignitions
+	- grey: Supression
+	- White: No limiation.
+
+Make sure 100% limited and grey are same luminosity
+
+
+# Fig 3
+Maps of human impact
+
+a) Overall impact: LimFire(control) - LimFire(no Humans)
+b) Human Ignitions (white to red): LimFire(Control) - LimFire(no anthro ignitions) 
+c) Human supression (white to blue): ditto.
+
+
+
+# Fig S1
+Each variable mapped
+
+# Fig S2
+Each limitation mapped
+
+# Fig S3 
+Map of fire anaomolie with each limitation lifted in turn
+
+
 
 # Lit Review stuff
 ## Bistinas et al.: 
