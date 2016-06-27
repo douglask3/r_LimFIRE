@@ -12,6 +12,37 @@
 - If a factor is less than ideal (i.e, frgmented fuel, damo fuel, lack of ignitions or high crop or urban cover), this represents a limitation of fire.
 - scaled to a limitation factor using equations...
 
+## LimFire
+
+### Fuel 
+NPP from the preious 12 months.
+Taken from MOD17A3
+
+### Moisture
+
+#### Live moisture
+
+alpha
+
+#### Dead moisture
+
+EMC
+
+
+### ignitions
+
+#### lightning
+
+
+#### human ignitions
+
+### supression
+
+#### agriculture
+
+#### popdens
+
+
 Some weakneness:
 	- Some parts of the world havbe >100% burnt area per year (quantify). However, this is an asumption in most DGVM-fire models, many of which fail to simulate >30% burnt area anywhere.
         - Assumens only 1 fire season (quantify area with > 1 season)
