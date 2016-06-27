@@ -10,11 +10,12 @@ setupProjectStructure()
 sourceAllLibs()
 
 years = 1997:2005
-drive_fname = c(alpha = 'alpha',
-                NPP   = 'NPP',
-                crop = 'cropland',
-                pas = 'pasture',
-                urban = 'urban_area',
+drive_fname = c(alpha   = 'alpha',
+                emc     = 'emc',
+                NPP     = 'NPP',
+                crop    = 'cropland',
+                pas     = 'pasture',
+                urban   = 'urban_area',
                 popdens = 'population_density'
                 )
 
