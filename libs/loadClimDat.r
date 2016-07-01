@@ -1,4 +1,4 @@
-loadClimDat <- function(dir, varns, clim_layers {
+loadClimDat <- function(dir, varns, clim_layers) {
 	files = list.files(dir, full.names = TRUE)
 
 	loadDat <- function(varn) {
