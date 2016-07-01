@@ -9,6 +9,6 @@ loadClimDat <- function(dir, varns, clim_layers) {
 	dat = lapply(varns, loadDat)
 
 	nyears = floor(length(clim_layers)/12)
-	
+
 	return(list(dat, nyears))
 }
