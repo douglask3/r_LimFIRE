@@ -15,7 +15,7 @@ clim_layers = 73:288
 ################################################################################
 ## load data                                                                  ##
 ################################################################################
-c(dat, nyears) := loadClimDat
+c(dat, nyears) := loadClimDat(dir, varns, clim_layers)
 
 ################################################################################
 ##                                                          ##
@@ -24,8 +24,9 @@ c(dat, nyears) := loadClimDat
 make_emc <- function(i) {
 	Vap = dat[[1]][[i]]
 	Tas = dat[[2]][[i]]
-	Hr = realtive_humidity(Tas, Vap)
+	Hr = realtive_humidity(Vap, Tas)
 	emc = fuel_moisture_equilibrium(0, Hr, Tas)
+    browser()
 }
 
 
