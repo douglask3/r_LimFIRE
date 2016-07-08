@@ -16,7 +16,8 @@ drive_fname = c(alpha   = 'alpha',
                 crop    = 'cropland',
                 pas     = 'pasture',
                 urban   = 'urban_area',
-                popdens = 'population_density'
+                popdens = 'population_density',
+				fire    = 'fire'
                 )
 
 

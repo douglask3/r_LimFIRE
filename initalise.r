@@ -7,6 +7,7 @@ install.packages('spam')
 install.packages('fields')
 install.packages('mapproj')
 install.packages('mapdata')
+install.packages('Rcpp') # Needed for benchmarkmetrics
 
 install_github("rhyswhitley/r_stash/rstash")
 
@@ -15,3 +16,6 @@ install_github('douglask3/benchmarkmetrics/benchmarkMetrics')
 install_bitbucket('douglask3/rasterExtraFuns/rasterExtras')
 install_bitbucket('douglask3/rasterExtraFuns/rasterPlotFunctions')
 
+
+source("http://bioconductor.org/biocLite.R")
+biocLite("rhdf5")
