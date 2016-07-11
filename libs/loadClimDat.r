@@ -3,7 +3,8 @@ loadClimDat <- function(dir, varns, clim_layers) {
 
 	loadDat <- function(varn) {
 		files = files[grepl(varn, files)]
-		return(layer.apply(files, stack)[[clim_layers]])
+		dat = layer.apply(files, stack)[[clim_layers]]
+        dat = layer.apply(dat, convert_pacific_centric_2_regular, TRUE)
 	}
 
 	dat = lapply(varns, loadDat)

@@ -4,7 +4,6 @@
 ## Libraries etc
 source('cfg.r')
 library(rhdf5)
-memSafeFile.initialise('temp/gfed')
 
 dir = 'gfed'
 
