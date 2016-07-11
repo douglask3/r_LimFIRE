@@ -23,14 +23,14 @@ c(dat, nyears) := loadClimDat(dir, varns, clim_layers)
 ################################################################################
 
 make_emc <- function(i) {
-        m = i %% 12; if (m == 0) m = 12
-        Wet = dat[['wetday']][[i]] / ml[m]
-        Vap = dat[[1]][[i]]
+    m = monthOfYear(i)
+    Wet = dat[['wetday']][[i]] / ml[m]
+    Vap = dat[[1]][[i]]
 	Tas = dat[[2]][[i]]
 	Hr = realtive_humidity(Vap, Tas)
 	emc = fuel_moisture_equilibrium(0, Hr, Tas)
         
-        emc = emc * (1-Wet) + 100 * Wet
+    emc = emc * (1-Wet) + 100 * Wet
         
         return(emc)
 }
