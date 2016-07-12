@@ -9,7 +9,7 @@ library(rasterPlot)
 setupProjectStructure()
 sourceAllLibs()
 
-years = 1997:2005
+years = 1996:2015
 
 ml = c(31,28,31,30,31,30,31,31,30,31,30,31)
 drive_fname = c(alpha   = 'alpha',
