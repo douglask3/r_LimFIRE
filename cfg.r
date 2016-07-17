@@ -6,8 +6,8 @@ library(rasterExtras)
 library(rasterPlot)
 
 
-setupProjectStructure()
-sourceAllLibs()
+setupProjectStructure(dirn = c("outputs", "data", "temp", "figs")))
+sourceAllLibs('src/libs')
 
 years       = 2000:2014
 clim_layers =  121:288
