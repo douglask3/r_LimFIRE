@@ -30,7 +30,7 @@ make_emc <- function(i) {
         
     emc = emc * (1-Wet) + 100 * Wet
         
-        return(emc)
+    return(emc)
 }
 
 

@@ -34,6 +34,7 @@ make_variable <- function(var, fname_out, frac) {
 
     ## rerid to standard
     dat = raster::resample(dat, grid)
+    dat = interpolate2monthly(dat)
 
     ## Output
     comment[4] = var
