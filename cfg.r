@@ -10,7 +10,7 @@ setupProjectStructure(dirn = c("outputs", "data", "temp", "figs"))
 sourceAllLibs('src/libs')
 
 years       = 2000:2014
-clim_layers =  121:288
+clim_layers =  127:294
 
 ml = c(31,28,31,30,31,30,31,31,30,31,30,31)
 drive_fname = c(alpha   = 'alpha',
