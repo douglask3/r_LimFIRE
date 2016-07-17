@@ -3,7 +3,7 @@ interpolate2monthly <- function(dat) {
         print(i)
         monthly <- function(m) {
             print(m)
-            w2 = 1 / m
+            w2 = (1/12) * (m-1)
             w1 = 1 - w2
             int = dat[[i]] *  w1 + dat[[i+1]] * w2
             int = writeRaster(int,  memSafeFile(), overwrite = TRUE)
