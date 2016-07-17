@@ -85,7 +85,7 @@ interpolate2monthly <- function(i) {
     print(i)
     monthly <- function(m) {
         print(m)
-        w2 = 1/m
+        w2 = 1 / m
         w1 = 1 - w2
         int = dat[[i]] *  w1 + dat[[i+1]] * w2
         int = writeRaster(int,  memSafeFile(), overwrite = TRUE)
@@ -95,3 +95,9 @@ interpolate2monthly <- function(i) {
 }
 
 dat = layer.apply(1:(nlayers(dat)-1), interpolate2monthly)
+
+comment = list('Data extracted from geotiff files' =
+					'Source: http://www.ntsg.umt.edu/project/MOD17/')
+
+writeRaster.gitInfo(dat, drive_fname['npp'],
+                    comment = comment, overwrite = TRUE)
