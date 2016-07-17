@@ -32,8 +32,6 @@ openHDFandConvert2Nc <- function(month, fname) {
 	return(dat)
 }
 
-
-
 dat = layer.apply(files, function(...)
 				 layer.apply(1:12, openHDFandConvert2Nc, ...))
 				 
