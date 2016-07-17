@@ -6,7 +6,7 @@ library(rasterExtras)
 library(rasterPlot)
 
 
-setupProjectStructure(dirn = c("outputs", "data", "temp", "figs")))
+setupProjectStructure(dirn = c("outputs", "data", "temp", "figs"))
 sourceAllLibs('src/libs')
 
 years       = 2000:2014
