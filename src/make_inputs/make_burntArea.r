@@ -40,7 +40,8 @@ names(fileDate) = paste(names(fileDate), 'obtained on')
 comment = list('Data from GFEDv4.1s' =
 					'Raw data file list on data/gfed/file_list.txt',
 				'Data obtained on' = fileDate)
-
+dat = dat[[7:(nlayers(dat) - 6)]]
+                
 writeRaster.gitInfo(dat, drive_fname['fire'],
                     comment = comment, overwrite = TRUE, 
                     zname = 'time', zunit = 'months since Jan 1996')
