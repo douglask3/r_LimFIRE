@@ -5,6 +5,11 @@
 	1. increased igntions with population and pasture (as incoporated in e.g. SPITFIRE and LmFire)
 	1. Fragmentation factor, from crop and urban cover
 
+Knorr et al. 2014 Used fAPAR as fuel idicator. But on sub-annual timestep, this is not fuel load, as dead, non pa vegetation
+still contributes to fuel
+
+Similarities to SimFire (Knorr et al. 2014), but able to test ignitions as well.
+Includes postive and negative effects of same variable.
 
 # Methods
 - Under perfect conditions, iyt is assumed taht 100% of grid cell is burnt
