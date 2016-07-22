@@ -81,6 +81,8 @@ dat = writeRaster(dat, inter_file_name, overwrite = TRUE)
 
 browser()
 
+dat = raster::extend(dat,extent(-180, 180, -90, 90))
+
 interpolate2monthly <- function(i) {
     print(i)
     monthly <- function(m) {
