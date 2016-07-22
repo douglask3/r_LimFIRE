@@ -1,4 +1,4 @@
-
+source('cfg.r')
 cntr = nls.control(warnOnly = TRUE)
 
 sf1 = 100
