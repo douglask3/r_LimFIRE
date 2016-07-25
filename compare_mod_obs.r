@@ -1,27 +1,8 @@
 source('cfg.r')
 mod_file = 'outputs/LimFIRE_fire.nc'
 fig_file = 'figs/gfedComparison.png'
-
-runLimFIREfromstandardIns <- function() {
-    Obs = lapply(drive_fname, stack)
-    params = read.csv(coefficants_file)[,-1]
-    params = apply(as.matrix(params),2, mean)
-    
-    runMonthly <- function(i) {
-        cat("simulation fire for month ", i, "\n")
-        LimFIRE(Obs[["npp"   ]][[i]],
-                Obs[["alpha" ]][[i]], Obs[["emc"    ]][[i]], 
-                Obs[["Lightn"]][[i]], Obs[["pas"    ]][[i]],
-                Obs[["crop"  ]][[i]], Obs[["popdens"]][[i]],
-                             params['f1'],  params['f2'],  
-                params['M'], params['m1'],  params['m2'],  
-                params['H'], params['i1'],  
-                params['P'], params['s1'],  params['s2'], fireOnly = TRUE)
-    }
-    mod = layer.apply(1:nlayers(Obs[[1]]), runMonthly)       
-}                   
  
-mod = runIfNoFile(mod_file, runLimFIREfromstandardIns)
+mod = runIfNoFile(mod_file, runLimFIREfromstandardIns, fireOnly = TRUE)
 obs = lapply(drive_fname, stack)[["fire"]]
  
 ###########################################################################

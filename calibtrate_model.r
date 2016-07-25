@@ -18,45 +18,7 @@ upper_params = list(         f1 = 9E9 , f2 = 10,
                     H = 9E9, i1 = 100 ,
                     P = 9E9, s1 = 9E9 , s2 = 10   )
 
-
-findTotalMask <- function(r) {
-    mask = is.na(r[[1]])
-    for (i in 2:nlayers(r)) mask = mask + is.na(r[[i]])
-    mask = mask > 0 
-    mask = writeRaster(mask, file = memSafeFile(), overwrite = TRUE)
-    return(mask)
-}
-
-valuesLayerByLayer <- function(r, mask) {
-    lmask = sum.raster(mask)
-    v = rep(NaN, lmask * nlayers(r))
-    for (i in 1:nlayers(r)) {
-        index = seq((i-1) * lmask + 1, i * lmask)
-        v[index] = r[[i]][mask]
-    }
-    return(v)
-}
-
-rasters2DataFrame <- function(x) {
-    nl = sapply(x, nlayers)
-    mn = min(nl)
-    if (any(nl!=mn)) {
-        warning("layers different in inputs. Selecting first ", mn, " layers for each")
-        x = lapply(x, function(i) i[[1:mn]])
-    }
-    
-    mask = layer.apply(x, findTotalMask)
-    mask = sum(mask) == 0
-    x = lapply(x,  valuesLayerByLayer, mask)
-    x = data.frame(x)
-    return(x)
-}
-
-
-#if (!file.exists(inter_file_name)) {
-    Obs = lapply(drive_fname, stack)
-    Obs = rasters2DataFrame(Obs)
-#} else Obs = read.csv(inter_file_name, header = TRUE, nrows = 400000)[, -1]
+Obs = ObsRasters2DataFrame(Obs)
 
 
 browser()
