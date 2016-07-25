@@ -8,6 +8,7 @@ install.packages('fields')
 install.packages('mapproj')
 install.packages('mapdata')
 install.packages('Rcpp') # Needed for benchmarkmetrics
+install.packages('mapplots')
 
 install_github("rhyswhitley/r_stash/rstash")
 
@@ -19,3 +20,5 @@ install_bitbucket('douglask3/rasterExtraFuns/rasterPlotFunctions')
 
 source("http://bioconductor.org/biocLite.R")
 biocLite("rhdf5")
+
+install.packages('plotrix')

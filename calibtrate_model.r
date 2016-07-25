@@ -87,4 +87,4 @@ for (i in 1:100) {
 }
 
 
-write.csv( resStore, file = 'outputs/coefficants')             
+write.csv( resStore, file = coefficants_file)             

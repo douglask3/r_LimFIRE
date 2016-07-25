@@ -4,15 +4,23 @@ library(raster)
 library(ncdf4)
 library(rasterExtras)
 library(rasterPlot)
+library(plotrix)
+library(mapdata)
+library(mapplots)
+data(worldHiresMapEnv)
 
 
 setupProjectStructure(dirn = c("outputs", "data", "temp", "figs"))
 sourceAllLibs('src/libs')
+sourceAllLibs('src/LimFIRE')
 
 years       = 2000:2014
 clim_layers =  115:282
 
 ml = c(31,28,31,30,31,30,31,31,30,31,30,31)
+
+coefficants_file = 'outputs/coefficants'
+
 drive_fname = c(alpha   = 'alpha',
                 emc     = 'emc',
                 npp     = 'NPP',
