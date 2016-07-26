@@ -10,16 +10,15 @@ add_raster_4way_legend <- function(labs = letters[1:4], limits = c(0.25, 0.5, 0.
     
     add_3way(xpos = c(0.00, 0.20), 1)
     
-    text(x = 0.10, y = -0.2, labs[1], xpd = TRUE           )
+    text(x = 0.10, y = -0.25, labs[1], xpd = TRUE           )
     text(x = 0.00, y = 0.50, labs[2], xpd = TRUE, srt =  45)
     text(x = 0.20, y = 0.50, labs[3], xpd = TRUE, srt = -45)
     
-    text(x = seq(0.0, 0.2, length.out = 5), y = -0.1, limits, xpd = TRUE)
+    text(x = seq(0.0, 0.2, length.out = 5), y = -0.1, rev(limits5), xpd = TRUE)
     
     add_3way(xpos = c(0.33, 0.53), 2) 
     add_3way(xpos = c(0.56, 0.76), 3)    
     add_3way(xpos = c(0.79, 0.99), 4)    
-    browser()
 }
 
 add_raster_3way_legend_for_4way <- function(cols, limits = c(0.25, 0.5, 0.75), xpos = c(0,1), 
