@@ -22,15 +22,14 @@ runLimFIREfromstandardIns <- function(fireOnly = FALSE) {
     Moisture = mod[[3]]
     Ignitions = mod[[4]]
     Supression = mod[[5]]
-    Supression = mod[[5]]
     
     for (i in 2:nlayers(Obs[[1]])) {
         mod = runMonthly(i)
         Fire = addLayer(Fire, mod[[1]])
-        Fuel = addLayer(Fire, mod[[2]])
-        Moisture = addLayer(Fire, mod[[3]])
-        Ignitions = addLayer(Fire, mod[[4]])
-        Supression = addLayer(Fire, mod[[5]])
+        Fuel = addLayer(Fuel, mod[[2]])
+        Moisture = addLayer(Moisture, mod[[3]])
+        Ignitions = addLayer(Ignitions, mod[[4]])
+        Supression = addLayer(Supression, mod[[5]])
     }
     return(list(Fire, Fuel, Moisture, Ignitions, Supression))
 }

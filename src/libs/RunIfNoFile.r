@@ -1,4 +1,4 @@
-runIfNoFile <- function(file, FUN, test = TRUE, ...) {
+runIfNoFile <- function(file, FUN, ..., test = TRUE) {
     if (test && all(file.exists(file))) {
         if (length(file) > 1) return(lapply(file, stack))
         if (tail(strsplit(file, '.', TRUE)[[1]],1) == "csv") return(read.csv(file)[,-1])
