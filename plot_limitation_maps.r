@@ -24,7 +24,22 @@ aa_mod = lapply(aa_mod[-1], values)
 layout(matrix(1:2), height = c(1, 0.3))
 par(mar = c(0,0,0,0))
 
+if (FALSE) {
 plot_4way(xy[,1], xy[,2], aa_mod[[3]] / 1.5, aa_mod[[1]], aa_mod[[2]], aa_mod[[4]],
+          x_range=c(-180,180),y_range=c(-60,90),
+    	  cols=rev(c("FF","CC","99","55","11")),
+    	  coast.lwd=par("lwd"),
+    	 add_legend=FALSE, smooth_image=FALSE,smooth_factor=5)
+}  
+
+convert2sensativity <- function(x)
+     1 - 2*abs(x - 0.5)
+     
+
+aa_mod = lapply(aa_mod, convert2sensativity)
+
+
+plot_4way(xy[,1], xy[,2], aa_mod[[3]], aa_mod[[1]], aa_mod[[2]], aa_mod[[4]],
           x_range=c(-180,180),y_range=c(-60,90),
     	  cols=rev(c("FF","CC","99","55","11")),
     	  coast.lwd=par("lwd"),
@@ -32,7 +47,7 @@ plot_4way(xy[,1], xy[,2], aa_mod[[3]] / 1.5, aa_mod[[1]], aa_mod[[2]], aa_mod[[4
 
 par(mar = c(3, 2, 0, 0))
 add_raster_4way_legend(cols = rev(c("FF","CC","99","55","11")),
-                       labs = c('<- Moisture', '<- Fuel', '<- Igntions', 'Supression'))
+                       labs = c('<- Moisture', 'Fuel ->', 'Igntions ->', 'Supression'))
 
 
 
