@@ -75,8 +75,8 @@ fs_mod[[2]][is.na(fs_mod[[2]])] = 1
 png(fig_fname, width = 9, height = 6 * 2.75/3, unit = 'in', res = 300)
 layout(rbind(1:2,3:4, 5, 5), heights = c(4, 4, 1))
 
-par(mar = c(0,0,0,0))
-plot_limtations_and_sensativity_plots <- function(pmod) {
+par(mar = c(0,0,0,0), oma = c(0,0,1,0))
+plot_limtations_and_sensativity_plots <- function(pmod, labs) {
     xy = xyFromCell(pmod[[1]], 1:length(pmod[[1]]))
     pmod = lapply(pmod[-1], values)
         
@@ -86,7 +86,8 @@ plot_limtations_and_sensativity_plots <- function(pmod) {
               coast.lwd=par("lwd"),
              add_legend=FALSE, smooth_image=FALSE,smooth_factor=5)
     
-
+    mtext(labs[1], line = -1, adj = 0.05)
+    
     convert2sensativity <- function(x) 1 - 2*abs(x - 0.5)
     pmod = lapply(pmod, convert2sensativity)
 
@@ -95,10 +96,13 @@ plot_limtations_and_sensativity_plots <- function(pmod) {
               cols=rev(c("FF","CC","99","55","11")),
               coast.lwd=par("lwd"),
              add_legend=FALSE, smooth_image=FALSE,smooth_factor=5)
+             
+    mtext(labs[2], line = -1, adj = 0.05)
 }
-
-plot_limtations_and_sensativity_plots(aa_mod)
-plot_limtations_and_sensativity_plots(fs_mod)
+labs = c('a) Annual average limits on fire', 'b) Annual average sensativity',
+         'c) Limits on fire during the fire season', 'd) Sensativity during the fire season')
+plot_limtations_and_sensativity_plots(aa_mod, labs[1:2])
+plot_limtations_and_sensativity_plots(fs_mod, labs[3:4])
 
 par(mar = c(3, 10, 0, 8))
 add_raster_4way_legend(cols = rev(c("FF","CC","99","55","11")),
