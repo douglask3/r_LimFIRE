@@ -1,6 +1,8 @@
 source('cfg.r')
 graphics.off()
 
+fig_fname = 'figs/limitation_map.png'
+
 mod_files = paste(outputs_dir, '/LimFIRE_',
                  c('fire', 'fuel','moisture','ignitions','supression'),
                   sep = '')
@@ -10,6 +12,14 @@ fs_mod_files = paste(mod_files, '-fs.nc', sep = '')
    mod_files = paste(mod_files,    '.nc', sep = '')
 
 mod = runIfNoFile(mod_files, runLimFIREfromstandardIns)
+
+#########################################################################
+## Annual Average                                                      ##
+#########################################################################
+
+aa_mod = runIfNoFile(aa_mod_files, function(x) lapply(x, mean), mod)
+aa_mod[[2]][is.na(aa_mod[[2]])] = 1
+
 
 #########################################################################
 ## Fire Season                                                         ##
@@ -56,30 +66,26 @@ maxFireLimiation <- function(x) {
 
 fs_mod = runIfNoFile(fs_mod_files, function(x) lapply(x, maxFireLimiation), mod)
 fs_mod[[2]][is.na(fs_mod[[2]])] = 1
+
+
 #########################################################################
-## Annual Average                                                      ##
+## Plotting                                                            ##
 #########################################################################
 
-aa_mod = runIfNoFile(aa_mod_files, function(x) lapply(x, mean), mod)
-aa_mod[[2]][is.na(aa_mod[[2]])] = 1
+png(fig_fname, width = 9, height = 6 * 2.75/3, unit = 'in', res = 300)
+layout(rbind(1:2,3:4, 5, 5), heights = c(4, 4, 1))
 
-
-
-
-layout(matrix(1:2), height = c(1, 0.3))
 par(mar = c(0,0,0,0))
-
-
 plot_limtations_and_sensativity_plots <- function(pmod) {
     xy = xyFromCell(pmod[[1]], 1:length(pmod[[1]]))
     pmod = lapply(pmod[-1], values)
-    if (FALSE) {
+        
     plot_4way(xy[,1], xy[,2], pmod[[3]] / 1.5, pmod[[1]], pmod[[2]], pmod[[4]],
               x_range=c(-180,180),y_range=c(-60,90),
               cols=rev(c("FF","CC","99","55","11")),
               coast.lwd=par("lwd"),
              add_legend=FALSE, smooth_image=FALSE,smooth_factor=5)
-    }  
+    
 
     convert2sensativity <- function(x) 1 - 2*abs(x - 0.5)
     pmod = lapply(pmod, convert2sensativity)
@@ -91,13 +97,13 @@ plot_limtations_and_sensativity_plots <- function(pmod) {
              add_legend=FALSE, smooth_image=FALSE,smooth_factor=5)
 }
 
+plot_limtations_and_sensativity_plots(aa_mod)
 plot_limtations_and_sensativity_plots(fs_mod)
 
-par(mar = c(3, 2, 0, 0))
+par(mar = c(3, 10, 0, 8))
 add_raster_4way_legend(cols = rev(c("FF","CC","99","55","11")),
                        labs = c('<- Moisture', 'Fuel ->', 'Igntions ->', 'Supression'))
 
-
-browser()
-
-
+par(fig = c(0, 1, 0, 1), mar = rep(0, 4))
+points(0.5, 0.5, col = 'white', cex = 0.05)
+dev.off.gitWatermark()
