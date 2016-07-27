@@ -72,10 +72,13 @@ fs_mod[[2]][is.na(fs_mod[[2]])] = 1
 ## Plotting                                                            ##
 #########################################################################
 
+## Set up plotting window
 png(fig_fname, width = 9, height = 6 * 2.75/3, unit = 'in', res = 300)
 layout(rbind(1:2,3:4, 5, 5), heights = c(4, 4, 1))
 
 par(mar = c(0,0,0,0), oma = c(0,0,1,0))
+
+## Plot limitation and sesativity
 plot_limtations_and_sensativity_plots <- function(pmod, labs) {
     xy = xyFromCell(pmod[[1]], 1:length(pmod[[1]]))
     pmod = lapply(pmod[-1], values)
@@ -99,15 +102,20 @@ plot_limtations_and_sensativity_plots <- function(pmod, labs) {
              
     mtext(labs[2], line = -1, adj = 0.05)
 }
+
+
 labs = c('a) Annual average limits on fire', 'b) Annual average sensativity',
          'c) Limits on fire during the fire season', 'd) Sensativity during the fire season')
 plot_limtations_and_sensativity_plots(aa_mod, labs[1:2])
 plot_limtations_and_sensativity_plots(fs_mod, labs[3:4])
 
+
+## Add legend
 par(mar = c(3, 10, 0, 8))
 add_raster_4way_legend(cols = rev(c("FF","CC","99","55","11")),
                        labs = c('<- Moisture', 'Fuel ->', 'Igntions ->', 'Supression'))
 
+## add footer
 par(fig = c(0, 1, 0, 1), mar = rep(0, 4))
 points(0.5, 0.5, col = 'white', cex = 0.05)
 dev.off.gitWatermark()
