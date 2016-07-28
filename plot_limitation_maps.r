@@ -104,8 +104,8 @@ plot_limtations_and_sensativity_plots <- function(pmod, labs) {
 }
 
 
-labs = c('a) Annual average limits on fire', 'b) Annual average sensativity',
-         'c) Limits on fire during the fire season', 'd) Sensativity during the fire season')
+labs = c('a) Annual average controls on fire', 'b) Annual average sensitivity',
+         'c) Controls on fire during the fire season', 'd) Sensitivity during the fire season')
 plot_limtations_and_sensativity_plots(aa_mod, labs[1:2])
 plot_limtations_and_sensativity_plots(fs_mod, labs[3:4])
 
