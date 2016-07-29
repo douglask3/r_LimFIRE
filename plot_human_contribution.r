@@ -42,7 +42,7 @@ layout(rbind(c(1,  2,  3),
 
 
 
-mtextStandard <- function(...) mtext(...)
+mtextStandard <- function(...) mtext(..., line = -2)
 
 standard_legend <- function(cols = fire_cols, lims = fire_lims, dat,
                             plot_loc = c(0.35,0.75,0.65,0.78)) {
@@ -55,7 +55,8 @@ standard_legend <- function(cols = fire_cols, lims = fire_lims, dat,
 standard_legend2 <- function(...)
         standard_legend(plot_loc = c(0.2, 0.9, 0.65, 0.78), ...)
                   
-                               
+
+mtext.burntArea <- function() mtext('Burnt Area (%)', cex = 0.8, line = -5)                  
 
 control = aaConvert(control)
 mtextStandard(labs[1])
@@ -65,6 +66,7 @@ noAnyth = aaConvert(noAnyth)
 mtextStandard(labs[3])
 
 standard_legend(dat = control)
+mtext.burntArea()
 
 
 noIgnit = control - noIgnit
@@ -77,6 +79,7 @@ plot_raster(noAnythi, diff_lims2, diff_cols2)
 mtextStandard(labs[5])
 #standard_legend2(diff_cols2, diff_lims2, dat = noAnyth)
 standard_legend2(diff_cols2, diff_lims2, dat = noAnyth)
+mtext.burntArea()
 
 
 noIgnit = 100 * noIgnit / control
@@ -85,8 +88,11 @@ noAnyth = 100 * control / noAnyth
 plot_raster(noIgnit, cont_lims1, cont_cols1)
 mtextStandard(labs[6])
 standard_legend2(cont_cols1, cont_lims1, dat = noIgnit)
+mtext.burntArea()
+
 plot_raster(noAnyth, cont_lims2, cont_cols2)
 mtextStandard(labs[7])
 standard_legend2(cont_cols2, cont_lims2, dat = noAnyth)
+mtext.burntArea()
 
 dev.off.gitWatermark()
