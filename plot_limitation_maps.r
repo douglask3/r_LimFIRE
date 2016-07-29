@@ -113,7 +113,7 @@ plot_limtations_and_sensativity_plots(fs_mod, labs[3:4])
 ## Add legend
 par(mar = c(3, 10, 0, 8))
 add_raster_4way_legend(cols = rev(c("FF","CC","99","55","11")),
-                       labs = c('<- Moisture', 'Fuel ->', 'Igntions ->', 'Supression'))
+                       labs = c('<- Moisture', 'Fuel ->', 'Igntions ->', 'Land Use'))
 
 ## add footer
 par(fig = c(0, 1, 0, 1), mar = rep(0, 4))
