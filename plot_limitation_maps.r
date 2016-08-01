@@ -92,13 +92,13 @@ plot_limtations_and_sensativity_plots <- function(pmod, labs) {
     xy = xyFromCell(pmod[[1]], 1:length(pmod[[1]]))
     pmod = lapply(pmod[-1], values)
         
-    plot_4way_standard(xy, pmod)    
+    plot_4way_standard(xy, pmod)
     mtext(labs[1], line = -1, adj = 0.05)
     
     convert2sensativity <- function(x) 1 - 2*abs(x - 0.5)
     pmod = lapply(pmod, convert2sensativity)
 
-    plot_4way_standard(xy, pmod)             
+    plot_4way_standard(xy, pmod)
     mtext(labs[2], line = -1, adj = 0.05)
 }
 
