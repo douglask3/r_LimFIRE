@@ -139,14 +139,6 @@ plot_limtations_and_sensativity_plots <- function(lm_pmod, sn_pmod, labs) {
     #sn_pmod = lapply(index, sn2snFire)
     
     pcs = rbind(pcs, plot_pmod(sn_pmod, labs[2]))
-    
-    #browser()
-    #convert2sensativity <- function(x, f) 1 - 2*abs(x - 0.5)
-    #pmod = mapply(convert2sensativity, pmod, SIMPLIFY = FALSE)
-    
-    #plot_4way_standard(xy, pmod)
-    #pcs = rbind(pcs, calculate_weightedAverage(xy, pmod))
-    #mtext(labs[2], line = -1, adj = 0.05)
     return(pcs)
 }
 
