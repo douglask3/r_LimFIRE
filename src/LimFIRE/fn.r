@@ -1,12 +1,3 @@
-#f1 <- function(x, a, b, force_zero = FALSE) {
-    
- #   y = 1/(1 + a * exp(-b * x))
-    
-   
-    
-  #  return(y)
-#}
-
 f1 <- function(x, a, b, force_zero = FALSE) {
     f1A <- function(xi) 1/(1 + a * exp(-b * xi))
     
@@ -14,15 +5,11 @@ f1 <- function(x, a, b, force_zero = FALSE) {
     
     if (force_zero) {
         f0 = f1A(0)
-        
         f1  = (f1 - f0)/(1 - f0)
         f1[is.na(f1)] = 0.0
     }
     return(f1)
 }
-
-
-
 
 
 df1 <- function(x, a, b, d = 0.1) {       
