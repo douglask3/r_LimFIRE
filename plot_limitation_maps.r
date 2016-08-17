@@ -4,6 +4,8 @@
 source('cfg.r')
 graphics.off()
 
+rerun_model = TRUE
+
 fig_fname = 'figs/limitation_map.png'
 
 
@@ -27,15 +29,15 @@ fs_sn_mod_files = paste(sn_mod_files, '-fs.nc', sep = '')
    lm_mod_files = paste(lm_mod_files,    '.nc', sep = '')
    sn_mod_files = paste(sn_mod_files,    '.nc', sep = '')
 
-lm_mod = runIfNoFile(lm_mod_files, runLimFIREfromstandardIns)
-sn_mod = runIfNoFile(sn_mod_files, runLimFIREfromstandardIns, sensitivity = TRUE)
+lm_mod = runIfNoFile(lm_mod_files, runLimFIREfromstandardIns,                     test = rerun_model)
+sn_mod = runIfNoFile(sn_mod_files, runLimFIREfromstandardIns, sensitivity = TRUE, test = rerun_model)
 
 #########################################################################
 ## Annual Average                                                      ##
 #########################################################################
 
-aa_lm_mod = runIfNoFile(aa_lm_mod_files, function(x) lapply(x, mean), lm_mod)
-aa_sn_mod = runIfNoFile(aa_sn_mod_files, function(x) lapply(x, mean), sn_mod)
+aa_lm_mod = runIfNoFile(aa_lm_mod_files, function(x) lapply(x, mean), lm_mod, test = rerun_model)
+aa_sn_mod = runIfNoFile(aa_sn_mod_files, function(x) lapply(x, mean), sn_mod, test = rerun_model)
 aa_lm_mod[[2]][is.na(aa_lm_mod[[2]])] = 100
 aa_sn_mod[[2]][is.na(aa_sn_mod[[2]])] = 100
 
@@ -58,7 +60,7 @@ which.maxMonth <- function(x) {
     return(layer.apply(1:nyears, forYear))
 }
 
-maxMonth = runIfNoFile('temp/maxMonth.nc', which.maxMonth, mod[[1]])
+maxMonth = runIfNoFile('temp/maxMonth.nc', which.maxMonth, mod[[1]], test = rerun_model)
 
 maxFireLimiation <- function(x) {
     nyears = nlayers(x) / 12
@@ -83,8 +85,8 @@ maxFireLimiation <- function(x) {
     return(out)
 }
 
-fs_lm_mod = runIfNoFile(fs_lm_mod_files, function(x) lapply(x, maxFireLimiation), lm_mod)
-fs_sn_mod = runIfNoFile(fs_sn_mod_files, function(x) lapply(x, maxFireLimiation), sn_mod)
+fs_lm_mod = runIfNoFile(fs_lm_mod_files, function(x) lapply(x, maxFireLimiation), lm_mod, test = rerun_model)
+fs_sn_mod = runIfNoFile(fs_sn_mod_files, function(x) lapply(x, maxFireLimiation), sn_mod, test = rerun_model)
 fs_lm_mod[[2]][is.na(fs_lm_mod[[2]])] = 1
 
 
@@ -126,12 +128,14 @@ plot_pmod <- function(pmod, lab) {
     mtext(lab, line = -1, adj = 0.05)
     return(pcs)
 }
-    
-pc_aa = plot_pmod(aa_lm_mod, labs[1])
-pc_aa = rbind(pc_aa, plot_pmod(aa_sn_mod, labs[2]))
 
-pc_fs = plot_pmod(fs_lm_mod, labs[3])
-pc_fs = rbind(pc_fs, plot_pmod(fs_sn_mod, labs[4]))
+pc_out = rbind(
+            'annual average limitation'  = plot_pmod(aa_lm_mod, labs[1]), 
+            'annual average sensitivity' = plot_pmod(aa_sn_mod, labs[2]),
+            'fire season limitation'     = plot_pmod(fs_lm_mod, labs[3]),
+            'fire season sensitivity'    = plot_pmod(fs_sn_mod, labs[4]))
+
+colnames(pc_out) = c('Fuel Discontinuity', 'Moisture', 'Ignitions', 'Land use')
 
 
 ## Add legend
