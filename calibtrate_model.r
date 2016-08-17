@@ -23,7 +23,7 @@ Obs = ObsRasters2DataFrame()
 
 
 nls_bootstrap <- function() {
-    index = sample(1:ncells, 100000, replace = FALSE)
+    index = sample(1:ncells, 10, replace = FALSE)
     dat = Obs[index, ]
     res = nls( fire ~ LimFIRE(npp, alpha, emc, Lightn, pas, crop, popdens,
                         f1, f2, M, m1, m2, H, i1, P, s1, s2, fireOnly = TRUE), 
@@ -38,7 +38,7 @@ nls_bootstrap <- function() {
 ncells = dim(Obs)[1]
 resStore = c()
 
-for (i in 1:100) {
+for (i in 1:5) {
    cat('\n==================\n',
        ' Bootstrap ', i, 
        '\n==================\n')
