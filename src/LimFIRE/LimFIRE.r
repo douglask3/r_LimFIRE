@@ -23,7 +23,7 @@ LimFIRE <- function(fuel, moisture_live, moisture_dead,
     Fuel       = FUN.fuel      (fuel      , f1, f2)
     Moisture   = FUN.moisture  (moisture  , m1, m2)
     Ignitions  = FUN.ignitions (ignitions , i1    )#
-    browser()
+    
     Supression = FUN.supression(supression, s1, s2)
 
     Fire = (1 - Fuel) * (1 - Moisture) * (1 - Ignitions) * (1 - Supression)
