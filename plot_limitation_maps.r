@@ -6,6 +6,11 @@ graphics.off()
 
 fig_fname = 'figs/limitation_map.png'
 
+
+labs = c('a) Annual average controls on fire', 'b) Annual average sensitivity',
+         'c) Controls on fire during the fire season', 'd) Sensitivity during the fire season')
+
+
 mod_files = paste(outputs_dir, '/LimFIRE_',
                  c('fire', 'fuel','moisture','ignitions','supression'),
                   sep = '')
@@ -93,14 +98,6 @@ layout(rbind(1:2,3:4, 5, 5), heights = c(4, 4, 1))
 
 par(mar = c(0,0,0,0), oma = c(0,0,1,0))
 
-plot_4way_standard <- function(xy, pmod) {
-    plot_4way(xy[,1], xy[,2], pmod[[3]], pmod[[1]], pmod[[2]], pmod[[4]],
-              x_range=c(-180,180),y_range=c(-60,90),
-              cols=rev(c("FF","CC","99","55","11")),
-              coast.lwd=par("lwd"),
-              add_legend=FALSE, smooth_image=FALSE,smooth_factor=5)
-
-}
 
 calculate_weightedAverage <- function(xy, pmod) {
     #pmod[[3]] = pmod[[3]]/4
@@ -112,44 +109,29 @@ calculate_weightedAverage <- function(xy, pmod) {
     
 }
 
-## Plot limitation and sesativity
-plot_limtations_and_sensativity_plots <- function(lm_pmod, sn_pmod, labs) {
+## Plot limitation and sesativity  
+plot_pmod <- function(pmod, lab) {
     
-    plot_pmod <- function(pmod, lab) {
-        xy = xyFromCell(pmod[[1]], 1:length(pmod[[1]]))
-        pmod = lapply(pmod, values)
-    
-        plot_4way_standard(xy, pmod)
-        pcs = calculate_weightedAverage(xy, pmod)
-        mtext(lab, line = -1, adj = 0.05)
-        return(pcs)
-    }
-    lm_pmod = lm_pmod[-1]
-    lm_pmod[[3]] = lm_pmod[[3]] / 3
-    lm_pmod[[4]] = lm_pmod[[4]] * 0.6
-    pcs = plot_pmod(lm_pmod, labs[1])
-    
-    sn_pmod = sn_pmod[-1]
-    
-    
-    #sn2snFire <- function(i) {
-    #    index = index[-i]
-    #    l = sn_pmod[[i]] 
-    #    for (j in lm_pmod[index]) l = l * j
-    #    return(l)
-    #}
-    #index = 1:length(sn_pmod)
-    #sn_pmod = lapply(index, sn2snFire)
-    
-    pcs = rbind(pcs, plot_pmod(sn_pmod, labs[2]))
+    pmod = pmod[-1] # remove first element of simulated fire
+    xy = xyFromCell(pmod[[1]], 1:length(pmod[[1]]))
+    pmod = lapply(pmod, values)
+
+    plot_4way(xy[,1], xy[,2], pmod[[3]], pmod[[1]], pmod[[2]], pmod[[4]],
+              x_range=c(-180,180),y_range=c(-60,90),
+              cols=rev(c("FF","CC","99","55","11")),
+              coast.lwd=par("lwd"),
+              add_legend=FALSE, smooth_image=FALSE,smooth_factor=5)
+              
+    pcs = calculate_weightedAverage(xy, pmod)
+    mtext(lab, line = -1, adj = 0.05)
     return(pcs)
 }
+    
+pc_aa = plot_pmod(aa_lm_mod, labs[1])
+pc_aa = rbind(pc_aa, plot_pmod(aa_sn_mod, labs[2]))
 
-
-labs = c('a) Annual average controls on fire', 'b) Annual average sensitivity',
-         'c) Controls on fire during the fire season', 'd) Sensitivity during the fire season')
-pc_aa = plot_limtations_and_sensativity_plots(aa_lm_mod, aa_sn_mod, labs[1:2])
-pc_fs = plot_limtations_and_sensativity_plots(fs_lm_mod, fs_sn_mod, labs[3:4])
+pc_fs = plot_pmod(fs_lm_mod, labs[3])
+pc_fs = rbind(pc_fs, plot_pmod(fs_sn_mod, labs[4]))
 
 
 ## Add legend
