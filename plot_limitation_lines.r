@@ -16,7 +16,7 @@ plotFireVsVar <- function(i, fun, ps,
         P = mean(params[,1])
         i = (mod[,i[1]] + P * mod[, i[2]]) #/ (1 + P)
         params = as.matrix(params[, -1])
-        if (dim(params)[2]==1) params = params * 33 ## Remove
+        #if (dim(params)[2]==1) params = params * 33 ## Remove
     }
     
     x = seq(xlim[1], xlim[2], length.out = 1000)
@@ -62,7 +62,7 @@ par(mfrow = c(4, 1), mar = c(4,4,3, 4))
 
 plotFireVsVar('npp', LimFIRE.fuel, c('f1', 'f2'), 'green', 'NPP (g/m2)', c(0, 10000))
 plotFireVsVar(c('alpha', 'emc'), LimFIRE.moisture, c('M','m1', 'm2'), 'blue', 'Moisture (fraction)', c(0, 30))
-plotFireVsVar(c('Lightn', 'pas'), LimFIRE.ignitions, c('H','i1'), 'red', 'igntions (/m2)', c(0, 3))
+plotFireVsVar(c('Lightn', 'pas'), LimFIRE.ignitions, c('H','i1', 'i2'), 'red', 'igntions (/m2)', c(0, 3))
 plotFireVsVar(c('crop', 'popdens'), LimFIRE.supression, c('P','s1', 's2'), 'purple', 'land cover (%)', c(0, 100))
 
 dev.off.gitWatermark()
