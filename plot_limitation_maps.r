@@ -4,7 +4,7 @@
 source('cfg.r')
 graphics.off()
 
-grab_cache = FALSE
+grab_cache = TRUE
 
 fig_fname = 'figs/limitation_map.png'
 
@@ -60,7 +60,7 @@ which.maxMonth <- function(x) {
     return(layer.apply(1:nyears, forYear))
 }
 
-maxMonth = runIfNoFile('temp/maxMonth.nc', which.maxMonth, mod[[1]], test = grab_cache)
+maxMonth = runIfNoFile('temp/maxMonth.nc', which.maxMonth, lm_mod[[1]], test = grab_cache)
 
 maxFireLimiation <- function(x) {
     nyears = nlayers(x) / 12
@@ -96,7 +96,6 @@ fs_lm_mod[[2]][is.na(fs_lm_mod[[2]])] = 1
 
 ## function for calculating pcs for table
 calculate_weightedAverage <- function(xy, pmod) {
-    #pmod[[3]] = pmod[[3]]/4
     pmod = layer.apply(pmod, function(i) rasterFromXYZ(cbind(xy, i)))
     pmod = pmod / sum(pmod)
     pmod = layer.apply(pmod, function(i) sum.raster(i * area(i), na.rm = TRUE))
@@ -113,7 +112,7 @@ plot_pmod <- function(pmod, lab) {
     pmod = lapply(pmod, values)
 
     plot_4way(xy[,1], xy[,2], pmod[[3]], pmod[[1]], pmod[[2]], pmod[[4]],
-              x_range=c(-180,180),y_range=c(-60,90),
+              x_range = c(-180, 180), y_range = c(-60, 90),
               cols=rev(c("FF","CC","99","55","11")),
               coast.lwd=par("lwd"),
               add_legend=FALSE, smooth_image=FALSE,smooth_factor=5)
