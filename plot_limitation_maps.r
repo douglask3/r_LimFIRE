@@ -91,16 +91,10 @@ fs_lm_mod[[2]][is.na(fs_lm_mod[[2]])] = 1
 
 
 #########################################################################
-## Plotting                                                            ##
+## Plotting and tableing                                               ##
 #########################################################################
 
-## Set up plotting window
-png(fig_fname, width = 9, height = 6 * 2.75/3, unit = 'in', res = 300)
-layout(rbind(1:2,3:4, 5, 5), heights = c(4, 4, 1))
-
-par(mar = c(0,0,0,0), oma = c(0,0,1,0))
-
-
+## function for calculating pcs for table
 calculate_weightedAverage <- function(xy, pmod) {
     #pmod[[3]] = pmod[[3]]/4
     pmod = layer.apply(pmod, function(i) rasterFromXYZ(cbind(xy, i)))
@@ -111,7 +105,7 @@ calculate_weightedAverage <- function(xy, pmod) {
     
 }
 
-## Plot limitation and sesativity  
+## Plot limitation or sesativity, and outputting pcs 
 plot_pmod <- function(pmod, lab) {
     
     pmod = pmod[-1] # remove first element of simulated fire
@@ -129,6 +123,15 @@ plot_pmod <- function(pmod, lab) {
     return(pcs)
 }
 
+
+## Set up plotting window
+png(fig_fname, width = 9, height = 6 * 2.75/3, unit = 'in', res = 300)
+layout(rbind(1:2,3:4, 5, 5), heights = c(4, 4, 1))
+
+par(mar = c(0,0,0,0), oma = c(0,0,1,0))
+
+
+## Plot and put pcs in table
 pc_out = rbind(
             'annual average limitation'  = plot_pmod(aa_lm_mod, labs[1]), 
             'annual average sensitivity' = plot_pmod(aa_sn_mod, labs[2]),
