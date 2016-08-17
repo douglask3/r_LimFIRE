@@ -4,7 +4,7 @@
 source('cfg.r')
 graphics.off()
 
-rerun_model = TRUE
+grab_cache = FALSE
 
 fig_fname = 'figs/limitation_map.png'
 
@@ -29,15 +29,15 @@ fs_sn_mod_files = paste(sn_mod_files, '-fs.nc', sep = '')
    lm_mod_files = paste(lm_mod_files,    '.nc', sep = '')
    sn_mod_files = paste(sn_mod_files,    '.nc', sep = '')
 
-lm_mod = runIfNoFile(lm_mod_files, runLimFIREfromstandardIns,                     test = rerun_model)
-sn_mod = runIfNoFile(sn_mod_files, runLimFIREfromstandardIns, sensitivity = TRUE, test = rerun_model)
+lm_mod = runIfNoFile(lm_mod_files, runLimFIREfromstandardIns,                     test = grab_cache)
+sn_mod = runIfNoFile(sn_mod_files, runLimFIREfromstandardIns, sensitivity = TRUE, test = grab_cache)
 
 #########################################################################
 ## Annual Average                                                      ##
 #########################################################################
 
-aa_lm_mod = runIfNoFile(aa_lm_mod_files, function(x) lapply(x, mean), lm_mod, test = rerun_model)
-aa_sn_mod = runIfNoFile(aa_sn_mod_files, function(x) lapply(x, mean), sn_mod, test = rerun_model)
+aa_lm_mod = runIfNoFile(aa_lm_mod_files, function(x) lapply(x, mean), lm_mod, test = grab_cache)
+aa_sn_mod = runIfNoFile(aa_sn_mod_files, function(x) lapply(x, mean), sn_mod, test = grab_cache)
 aa_lm_mod[[2]][is.na(aa_lm_mod[[2]])] = 100
 aa_sn_mod[[2]][is.na(aa_sn_mod[[2]])] = 100
 
@@ -60,7 +60,7 @@ which.maxMonth <- function(x) {
     return(layer.apply(1:nyears, forYear))
 }
 
-maxMonth = runIfNoFile('temp/maxMonth.nc', which.maxMonth, mod[[1]], test = rerun_model)
+maxMonth = runIfNoFile('temp/maxMonth.nc', which.maxMonth, mod[[1]], test = grab_cache)
 
 maxFireLimiation <- function(x) {
     nyears = nlayers(x) / 12
@@ -85,8 +85,8 @@ maxFireLimiation <- function(x) {
     return(out)
 }
 
-fs_lm_mod = runIfNoFile(fs_lm_mod_files, function(x) lapply(x, maxFireLimiation), lm_mod, test = rerun_model)
-fs_sn_mod = runIfNoFile(fs_sn_mod_files, function(x) lapply(x, maxFireLimiation), sn_mod, test = rerun_model)
+fs_lm_mod = runIfNoFile(fs_lm_mod_files, function(x) lapply(x, maxFireLimiation), lm_mod, test = grab_cache)
+fs_sn_mod = runIfNoFile(fs_sn_mod_files, function(x) lapply(x, maxFireLimiation), sn_mod, test = grab_cache)
 fs_lm_mod[[2]][is.na(fs_lm_mod[[2]])] = 1
 
 
