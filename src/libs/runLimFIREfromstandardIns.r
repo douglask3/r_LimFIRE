@@ -7,7 +7,7 @@ runLimFIREfromstandardIns <- function(fireOnly = FALSE, remove = NULL,
     if (!is.null(remove)) for (i in remove) Obs[[i]][] = 0
     
     runMonthly <- function(i) {
-        cat("simulation fire for month ", i, "\n")
+        cat("simulating fire for month ", i, "\n")
         LimFIRE(Obs[["npp"   ]][[i]],
                 Obs[["alpha" ]][[i]], Obs[["emc"    ]][[i]], 
                 Obs[["Lightn"]][[i]], Obs[["pas"    ]][[i]],
