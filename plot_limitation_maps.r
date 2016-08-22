@@ -50,8 +50,7 @@ aa_sn_mod = cal_annual_average(sn_mod_files, sn_mod)
 ## Fire Season                                                         ##
 #########################################################################
 
-which.maxMonth <- function(x) {
-    
+which.maxMonth <- function(x) {    
     nyears = nlayers(x) / 12
     
     forYear <- function(yr) {
