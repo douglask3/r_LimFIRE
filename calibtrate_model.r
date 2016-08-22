@@ -11,13 +11,13 @@ start_params = list(         f1 = 100 , f2 = 1/200,
                     
 lower_params = list(         f1 = 0.0 , f2 = 0.0,
                     M = 0  , m1 = 0.0 , m2 = 0.0,
-                    H = 0  , A  = 1   ,
+                    H = 0  , A  = 0   ,
                              i1 = 0.0 , i2 = 0.0,
                     P = 0  , s1 = 0.0 , s2 = 0.0)
                     
 upper_params = list(         f1 = 9E9 , f2 = 10,
                     M = 9E9, m1 = 9E9 , m2 = 10,
-                    H = 9E9, A  = 1   ,
+                    H = 9E9, A  = 9E9   ,
                              i1 = 9E9 , i2 = 10,
                     P = 9E9, s1 = 9E9 , s2 = 10   )
   
