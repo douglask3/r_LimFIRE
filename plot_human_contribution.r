@@ -3,6 +3,8 @@
 #########################################################################
 source('cfg.r')
 
+grab_cache = TRUE
+
 ## output filename
 mod_file = 'outputs/LimFIRE_fire'
 fig_file = 'figs/HumanImpactMap.png'
@@ -31,11 +33,12 @@ labs = c('a) Full model burnt area', 'b) No human ignitions', 'c) No humans', 'd
 #########################################################################
 ## Run experimets                                                      ##
 #########################################################################
-control = runIfNoFile(mod_file[1], runLimFIREfromstandardIns, fireOnly = TRUE)
+control = runIfNoFile(mod_file[1], runLimFIREfromstandardIns, fireOnly = TRUE,
+                                                        test = grab_cache)
 noIgnit = runIfNoFile(mod_file[2], runLimFIREfromstandardIns, fireOnly = TRUE, 
-                  remove = "pas")
+                  remove = "pas",                       test = grab_cache)
 noAnyth = runIfNoFile(mod_file[3], runLimFIREfromstandardIns, fireOnly = TRUE, 
-                  remove = c("pas", "crop", "popdens"))
+                  remove = c("pas", "crop", "popdens"), test = grab_cache)
 
 #########################################################################
 ## Calc. differences and plot                                          ##
