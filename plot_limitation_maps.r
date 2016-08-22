@@ -17,30 +17,34 @@ mod_files = paste(outputs_dir, '/LimFIRE_',
                  c('fire', 'fuel','moisture','ignitions','supression'),
                   sep = '')
 
+#########################################################################
+## Run model                                                           ##
+#########################################################################
 
-   lm_mod_files = paste(mod_files,    '-lm', sep = '')
-   sn_mod_files = paste(mod_files,    '-sn', sep = '')
+lm_mod_files = paste(mod_files,    '-lm', sep = '')
+sn_mod_files = paste(mod_files,    '-sn', sep = '')
                   
-aa_lm_mod_files = paste(lm_mod_files, '-aa.nc', sep = '')
-aa_sn_mod_files = paste(sn_mod_files, '-aa.nc', sep = '')
-fs_lm_mod_files = paste(lm_mod_files, '-fs.nc', sep = '')
-fs_sn_mod_files = paste(sn_mod_files, '-fs.nc', sep = '')
 
-   lm_mod_files = paste(lm_mod_files,    '.nc', sep = '')
-   sn_mod_files = paste(sn_mod_files,    '.nc', sep = '')
+runLimFIRE <- function(fname, ...){
+    fname = paste(fname,    '.nc', sep = '')
+    return(runIfNoFile(fname, runLimFIREfromstandardIns, test = grab_cache, ...))
+}
 
-lm_mod = runIfNoFile(lm_mod_files, runLimFIREfromstandardIns,                     test = grab_cache)
-sn_mod = runIfNoFile(sn_mod_files, runLimFIREfromstandardIns, sensitivity = TRUE, test = grab_cache)
+lm_mod = runLimFIRE(lm_mod_files)
+sn_mod = runLimFIRE(sn_mod_files, sensitivity = TRUE)
 
 #########################################################################
 ## Annual Average                                                      ##
 #########################################################################
+cal_annual_average <- function(fname, xx_mod) {
+    fname = paste(fname, '-aa.nc', sep = '')
+    xx_mod = runIfNoFile(fname, function(x) lapply(x, mean), xx_mod, test = grab_cache)
+    xx_mod[[2]][is.na(xx_mod[[2]])] = 100
+    return(xx_mod)
+}
 
-aa_lm_mod = runIfNoFile(aa_lm_mod_files, function(x) lapply(x, mean), lm_mod, test = grab_cache)
-aa_sn_mod = runIfNoFile(aa_sn_mod_files, function(x) lapply(x, mean), sn_mod, test = grab_cache)
-aa_lm_mod[[2]][is.na(aa_lm_mod[[2]])] = 100
-aa_sn_mod[[2]][is.na(aa_sn_mod[[2]])] = 100
-
+aa_lm_mod = cal_annual_average(lm_mod_files, lm_mod)
+aa_sn_mod = cal_annual_average(sn_mod_files, sn_mod)
 
 #########################################################################
 ## Fire Season                                                         ##
@@ -85,10 +89,15 @@ maxFireLimiation <- function(x) {
     return(out)
 }
 
-fs_lm_mod = runIfNoFile(fs_lm_mod_files, function(x) lapply(x, maxFireLimiation), lm_mod, test = grab_cache)
-fs_sn_mod = runIfNoFile(fs_sn_mod_files, function(x) lapply(x, maxFireLimiation), sn_mod, test = grab_cache)
-fs_lm_mod[[2]][is.na(fs_lm_mod[[2]])] = 1
+cal_fire_season_average <- function(fname, xx_mod) {
+    fname = paste(fname, '-fs.nc', sep = '')
+    xx_mod = runIfNoFile(fname, function(x) lapply(x, maxFireLimiation), xx_mod, test = grab_cache)
+    xx_mod[[2]][is.na(xx_mod[[2]])] = 100
+    return(xx_mod)
+}
 
+fs_lm_mod = cal_fire_season_average(lm_mod_files, lm_mod)
+fs_sn_mod = cal_fire_season_average(sn_mod_files, sn_mod)
 
 #########################################################################
 ## Plotting and tableing                                               ##
