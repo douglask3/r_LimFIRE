@@ -30,7 +30,13 @@ plot_impact <- function(mod_filei, xVar, lab, xUnit, noneLand = FALSE) {
 #########################################################################
 ## Calculate Impact                                                    ##
 #########################################################################  
-    impact = (control - noVar) / noVar
+    
+    impact = (control - noVar) 
+    test = impact < 0
+    impact[test] = impact[test] / noVar[test]
+    test = !test
+    impact[test] = impact[test] / control[test]
+    
     xVar   = mean(stack(drive_fname[xVar]))
 
     mask   = !(is.na(impact) | is.na(xVar))
@@ -52,7 +58,7 @@ plot_impact <- function(mod_filei, xVar, lab, xUnit, noneLand = FALSE) {
 
     ## plot window
     yrange = quantile(fImpact, probs = c(0.001, 0.999))
-    yrange = range(c(yrange, y), na.rm = TRUE)
+    yrange = range(c(yrange, 0), na.rm = TRUE)
     plot  (range(x), 100 * yrange, type = 'n', xlab = xUnit, ylab = 'Impact (% of burnt area)')
 
     ## plot
