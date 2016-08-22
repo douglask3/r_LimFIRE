@@ -16,9 +16,10 @@ LimFIRE <- function(fuel, moisture_live, moisture_dead,
         FUN.supression = LimFIRE.supression            
     }
         
-    moisture   = (moisture_live + M * moisture_dead  ) / (1 + M)
-    ignitions  = (lightning     + H * human_ignitions + A * popdens) / (1 + H + A)
-    supression = (agriculture   + P * popdens        ) / (1 + P)
+    moisture   = (moisture_live + M * moisture_dead    ) / (1 + M)
+    ignitions  = (lightning     + H * human_ignitions +
+                                            A * popdens) / (1 + H + A)
+    supression = (agriculture   + P * popdens          ) / (1 + P)
     
     Fuel       = FUN.fuel      (fuel      , f1, f2)
     Moisture   = FUN.moisture  (moisture  , m1, m2)
