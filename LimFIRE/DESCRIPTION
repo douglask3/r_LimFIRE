@@ -1,9 +1,11 @@
-Package: anRpackage
+Package: LimFIRE
 Type: Package
-Title: What the package does (short line)
+Title: Maps the limits of fire
 Version: 1.0
 Date: 2016-10-07
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Douglas Kelley
+Maintainer: Douglas Kelley <douglas.i.kelley@gmail.com>
+Description: {Maps the relative contribution of limitations of fire.
+              Limitations are fuel, moisture, ignitions and landuse.
+              Each limitation has a number of factors feeding in.}
+License: GLP-3
